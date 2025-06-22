@@ -1,3 +1,176 @@
+//Задание 1.1
+#include <iostream>
+using namespace std;
+
+int main() {
+    double x, y;
+    cout << "Введите координаты точки (x y): ";
+    cin >> x >> y;
+
+    bool in_rectangle = (x >= -2 && x <= 2) && (y >= -3 && y <= 2);
+    
+    bool below_left_side = (y <= (5.0 / 2) * x + 2);
+    bool below_right_side = (y <= -(5.0 / 2) * x + 2);
+
+    if (in_rectangle && below_left_side && below_right_side) {
+        cout << "Точка принадлежит заштрихованной области." << endl;
+    } else {
+        cout << "Точка не принадлежит заштрихованной области." << endl;
+    }
+
+    return 0;
+}
+
+//Задание 1.2
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    int D;
+    cout << "Введите число месяца (1-31): ";
+    cin >> D;
+
+    if (D < 1 || D > 31) {
+        cout << "Ошибка: число должно быть от 1 до 31" << endl;
+        return 1;
+    }
+
+    string days[] = {"Понедельник", "Вторник", "Среда", 
+                    "Четверг", "Пятница", "Суббота", "Воскресенье"};
+    
+    int dayOfWeek = (D - 1) % 7; 
+    
+    cout << "День недели: " << days[dayOfWeek] << endl;
+
+    return 0;
+}
+
+//Задание 2.1
+2.1
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+using namespace std;
+
+int main() {
+    double a, b, h;
+    
+    cout << "Введите начальное значение a: ";
+    cin >> a;
+    cout << "Введите конечное значение b: ";
+    cin >> b;
+    cout << "Введите шаг h: ";
+    cin >> h;
+    
+    if (h <= 0) {
+        cout << "Ошибка: шаг должен быть положительным числом!";
+        return 1;
+    }
+    if (a > b) {
+        cout << "Ошибка: начальное значение должно быть меньше конечного!";
+        return 1;
+    }
+    
+    cout << "\n  x\t\t  y\n";
+    cout << "-----------------------\n";
+    
+    cout << fixed << setprecision(4);
+    for (double x = a; x <= b; x += h) {
+        double denominator = 1.16 * x * x + 2;
+        if (fabs(denominator) < 1e-10) {  
+            cout << x << "\tне определено (деление на 0)\n";
+        }
+        else {
+            double y = (3.8 * x * x * x - 1) / denominator;
+            cout << x << "\t" << y << "\n";
+        }
+    }
+    
+    return 0;
+}
+
+//Задание 2.2
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    int num, max = 0;
+    
+    cout << "Введите последовательность чисел (0 для завершения):\n";
+    
+    while (true) {
+        cin >> num;
+        if (num == 0) break;
+        if (num > max) max = num;
+    }
+    
+    cout << "Наибольшее число: " << max;
+    
+    return 0;
+}
+
+//Задание 3.1
+#include <iostream>
+using namespace std;
+
+int main() {
+    const int N = 10;
+    int A[N];
+
+    cout << "Введите 10 элементов массива (сначала положительные, затем отрицательные):\n";
+    for(int i = 0; i < N; i++) {
+        cin >> A[i];
+    }
+    
+    int first_neg = 0;
+    while(first_neg < N && A[first_neg] > 0) {
+        first_neg++;
+    }
+
+    int product = 1;
+    for(int i = 0; i < first_neg; i++) {
+        product *= A[i];
+    }
+
+    int sum = 0;
+    for(int i = first_neg; i < N; i++) {
+        sum += A[i];
+    }
+    
+    cout << "Произведение положительных: " << product << endl;
+    cout << "Сумма отрицательных: " << sum << endl;
+    
+    return 0;
+}
+
+//Задание 3.2
+3.2
+#include <iostream>
+using namespace std;
+
+int main() {
+    const int N = 10;
+    double A[N], sum = 0;
+    int min_index = 0;
+
+    cout << "Введите 10 элементов массива:\n";
+    for(int i = 0; i < N; i++) {
+        cin >> A[i];
+        sum += A[i];  
+        if(A[i] < A[min_index]) {
+            min_index = i; 
+        }
+    }
+
+    double average = sum / N;
+
+    cout << "Индекс минимального элемента: " << min_index << endl;
+    cout << "Среднее арифметическое: " << average << endl;
+
+    return 0;
+}
 //Задание №4 (1 часть)
 
 #include <iostream>
