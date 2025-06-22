@@ -1,0 +1,412 @@
+Экзаменационный билет № 1
+ОП 03 Основы алгоритмизации и программирования
+
+Задание №1.1 (1 балл)
+Даны вещественные числа x и y. Определить, принадлежит ли точка с координатами (x; y) заштрихованной области
+
+cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    float x, y;
+    cin >> x >> y;
+    
+    if (x >= -1 && x <= 3 && y >= -2 && y <= 4) {
+        cout << "Принадлежит";
+    } else {
+        cout << "Не принадлежит";
+    }
+    
+    return 0;
+}
+
+Задание №1.2 (1 балл)
+Определить, пересекает ли прямая y = kx + m ось абсцисс. Если пересекает, найти точку пересечения
+
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    float k, m;
+    cin >> k >> m;
+    
+    if (k == 0) {
+        if (m == 0) {
+            cout << "Совпадает с осью";
+        } else {
+            cout << "Не пересекает";
+        }
+    } else {
+        float x = -m / k;
+        cout << "Пересекает в точке: " << x << " 0";
+    }
+    
+    return 0;
+}
+
+
+Задание №2.1 (2 балла)
+Вывести значения функции y = (3.8*x³ - 1)/(1.16*x² + 2) от a до b с шагом h
+
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main() {
+    float a, b, h;
+    cin >> a >> b >> h;
+
+    for (float x = a; x <= b; x += h) {
+
+        float znamenatel = 1.16 * x * x + 2;
+        
+
+        if (znamenatel == 0) {
+            cout << "При x = " << x << " деление на ноль!\n";
+        } else {
+
+            float y = (3.8 * x * x * x - 1) / znamenatel;
+            cout << "x = " << x << ", y = " << y << "\n";
+        }
+    }
+
+    return 0;
+}
+
+
+Задание №2.2 (2 балла)
+Вводится последовательность из N целых чисел. Определить количество одинаковых рядом стоящих чисел
+
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    int N;          // Количество чисел в последовательности
+    int current;    // Текущее число
+    int previous;   // Предыдущее число
+    int count = 0;  // Счетчик одинаковых пар
+
+    cin >> N;
+
+    if (N <= 0) {
+        cout << "Последовательность пуста";
+        return 0;
+    }
+
+
+    cin >> previous;
+
+
+    for (int i = 1; i < N; i++) {
+        cin >> current;
+        if (current == previous) {
+            count++;
+        }
+        previous = current;
+    }
+
+    // Выводим результат
+    cout << "Количество одинаковых пар соседних чисел: " << count;
+
+    return 0;
+}
+
+
+Задание №3.1 (3 балла)
+В одномерном массиве A(10) вычислить произведение элементов, расположенных после максимального элемента
+
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    int A[10];      // Объявляем массив из 10 элементов
+    int max_index = 0; // Индекс максимального элемента (изначально первый)
+    int product = 1;   // Переменная для хранения произведения
+
+
+    cout << "Введите 10 элементов массива:\n";
+    for (int i = 0; i < 10; i++) {
+        cin >> A[i];
+    }
+
+    for (int i = 1; i < 10; i++) {
+        if (A[i] > A[max_index]) {
+            max_index = i;
+        }
+    }
+
+
+    if (max_index < 9) {
+        for (int i = max_index + 1; i < 10; i++) {
+            product *= A[i];
+        }
+        cout << "Произведение элементов после максимального: " << product;
+    } 
+    else {
+        cout << "Максимальный элемент последний, произведение не вычисляется";
+    }
+
+    return 0;
+}
+
+
+Задание №3.2 (3 балла)
+В одномерном массиве A(10) вычислить сумму элементов, расположенных между минимальным и максимальным элементами
+
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    int A[10];          // Объявляем массив из 10 элементов
+    int min_index = 0;   // Индекс минимального элемента
+    int max_index = 0;   // Индекс максимального элемента
+    int sum = 0;         // Сумма элементов между min и max
+
+    // Ввод элементов массива
+    cout << "Введите 10 элементов массива:\n";
+    for (int i = 0; i < 10; i++) {
+        cin >> A[i];
+    }
+
+
+    for (int i = 1; i < 10; i++) {
+        if (A[i] < A[min_index]) {
+            min_index = i;
+        }
+        if (A[i] > A[max_index]) {
+            max_index = i;
+        }
+    }
+
+    int start, end;
+    if (min_index < max_index) {
+        start = min_index + 1;
+        end = max_index;
+    } else {
+        start = max_index + 1;
+        end = min_index;
+    }
+
+
+    if (start < end) {
+        for (int i = start; i < end; i++) {
+            sum += A[i];
+        }
+        cout << "Сумма элементов между min и max: " << sum;
+    } else {
+        cout << "Между min и max нет элементов";
+    }
+
+    return 0;
+}
+
+
+Задание №4.1 (8 баллов)
+Дана матрица A(10,10). Построить вектор B из элементов побочной диагонали. В новом векторе поменять местами минимальный и максимальный элементы.
+
+#include <iostream>
+using namespace std;
+
+int main() {
+int matritsa[10][10];
+int schetchik = 1;
+
+
+for(int stroka = 0; stroka < 10; stroka++) {
+    for(int stolbec = 0; stolbec < 10; stolbec++) {
+        matritsa[stroka][stolbec] = schetchik++;
+    }
+}
+
+cout << "Матрица 10 на 10:\n";
+for(int i = 0; i < 10; i++) {
+    for(int j = 0; j < 10; j++) {
+        cout << matritsa[i][j] << "\t";
+    }
+    cout << endl;
+}
+
+int diagonal[10];
+for(int i = 0; i < 10; i++) {
+    diagonal[i] = matritsa[i][9-i];
+}
+
+int min = diagonal[0], max = diagonal[0];
+int min_mesto = 0, max_mesto = 0;
+
+for(int i = 1; i < 10; i++) {
+    if(diagonal[i] < min) {
+        min = diagonal[i];
+        min_mesto = i;
+    }
+    if(diagonal[i] > max) {
+        max = diagonal[i];
+        max_mesto = i;
+    }
+}
+
+int tmp = diagonal[min_mesto];
+diagonal[min_mesto] = diagonal[max_mesto];
+diagonal[max_mesto] = tmp;
+
+cout << "\nВектор после обмена:\n";
+for(int i = 0; i < 10; i++) {
+    cout << diagonal[i] << " ";
+}
+
+return 0;
+}
+
+
+Задание №4.2 (4 балла)
+Дано: X(M), Y(N). Вектор, имеющий наибольшее количество различных компонент преобразовать по правилу: все четные компоненты разделить на 2.
+
+cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    int X[5] = {2, 4, 4, 6, 8};
+    int Y[6] = {1, 3, 5, 7, 9, 2};
+
+    int raz_x = 0;
+    for(int i = 0; i < 5; i++) {
+        bool est = false;
+        for(int j = 0; j < i; j++) {
+            if(X[i] == X[j]) est = true;
+        }
+        if(!est) raz_x++;
+    }
+
+    int raz_y = 0;
+    for(int i = 0; i < 6; i++) {
+        bool est = false;
+        for(int j = 0; j < i; j++) {
+            if(Y[i] == Y[j]) est = true;
+        }
+        if(!est) raz_y++;
+    }
+
+    if(raz_x > raz_y) {
+        for(int i = 0; i < 5; i++) {
+            if(X[i] % 2 == 0) X[i] = X[i] / 2;
+        }
+        for(int i = 0; i < 5; i++) {
+            cout << X[i] << " ";
+        }
+    } else {
+        for(int i = 0; i < 6; i++) {
+            if(Y[i] % 2 == 0) Y[i] = Y[i] / 2;
+        }
+        for(int i = 0; i < 6; i++) {
+            cout << Y[i] << " ";
+        }
+    }
+
+    return 0;
+}
+
+
+Задание №5 (5 баллов)
+Дан символьный массив, образованный из слов, разделённых пробелами. С использованием процедур и функций выполнить:
+1  Выдать на печать слова максимальнной длинны
+2  Удалить из слов, имеющих нечетную длинну среднюю букву
+3  Проверить, есть ли в тесте симметричные слова
+4  Перенести первую букву указанного в конец слова
+
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    string text = "level radar hello world program exam";
+    string words[10];
+    int cnt = 0;
+    string word = "";
+
+
+    for(char c : text) {
+        if(c == ' ') {
+            words[cnt++] = word;
+            word = "";
+        } else {
+            word += c;
+        }
+    }
+    words[cnt++] = word;
+
+
+    int max_len = 0;
+    for(int i = 0; i < cnt; i++) {
+        if(words[i].length() > max_len) {
+            max_len = words[i].length();
+        }
+    }
+    cout << "1. Самые длинные слова (" << max_len << " букв): ";
+    for(int i = 0; i < cnt; i++) {
+        if(words[i].length() == max_len) {
+            cout << words[i] << " ";
+        }
+    }
+    cout << endl;
+
+
+    for(int i = 0; i < cnt; i++) {
+        if(words[i].length() % 2 == 1) {
+            int sred = words[i].length() / 2;
+            words[i].erase(sred, 1);
+        }
+    }
+    cout << "2. После удаления средних букв: ";
+    for(int i = 0; i < cnt; i++) {
+        cout << words[i] << " ";
+    }
+    cout << endl;
+
+
+    cout << "3. Симметричные слова: ";
+    for(int i = 0; i < cnt; i++) {
+        bool sim = true;
+        string w = words[i];
+        for(int j = 0; j < w.length()/2; j++) {
+            if(w[j] != w[w.length()-1-j]) {
+                sim = false;
+                break;
+            }
+        }
+        if(sim) {
+            cout << w << " ";
+        }
+    }
+    cout << endl;
+
+
+    int nomer = 2;
+    if(nomer >= 0 && nomer < cnt) {
+        char bukva = words[nomer][0];
+        words[nomer] = words[nomer].substr(1) + bukva;
+    }
+    cout << "4. После переноса первой буквы: ";
+    for(int i = 0; i < cnt; i++) {
+        cout << words[i] << " ";
+    }
+    cout << endl;
+
+
+    char letter = 'a';
+    int kol = 0;
+    for(int i = 0; i < cnt; i++) {
+        if(!words[i].empty() && words[i].back() == letter) {
+            kol++;
+        }
+    }
+    cout << "5. Слов, оканчивающихся на '" << letter << "': " << kol << endl;
+
+    return 0;
+}
